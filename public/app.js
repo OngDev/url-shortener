@@ -1,5 +1,6 @@
-var serverUrl = '';
+var serverUrl = '/urls';
 var btn = document.getElementById('btn')
+var errorDiv = document.getElementById('btn')
 var urlInput= document.getElementById('url_lnk');
 var slugInput= document.getElementById('slug');
 
@@ -23,7 +24,7 @@ async function submit() {
     });
 
     console.log(response);
-    if(response && response == 'ok') {
+    if(response && response.status == 'ok') {
         result = response.body.result; 
     } else {
         error = response.error ?? 'Error';
@@ -31,6 +32,7 @@ async function submit() {
 
     if(error) {
         document.getElementById('form').innerHTML = error;
+        document.getElementById('resetBtn').style.display = 'block';
     } else {
         urlInput.style.disabled = true;
         slug.style.disabled = true;
@@ -39,3 +41,6 @@ async function submit() {
 }
 
 btn.addEventListener('click', submit);
+document.getElementById('reload').addEventListener('click', function() {
+    window.location.reload();
+});
