@@ -22,6 +22,7 @@ async function submit() {
         body: JSON.stringify(body)
     });
 
+    console.log(response);
     if(response && response == 'ok') {
         result = response.body.result; 
     } else {
