@@ -6,11 +6,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const app = express()
 
-<<<<<<< HEAD
 app.use(helmet())
-=======
- app.use(helmet())
->>>>>>> b8a32ba... Fix sv routing
 app.use(morgan('common'))
 app.use(cors())
 app.use(express.json())
