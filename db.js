@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 const monk = require('monk')
 const URL = process.env.MONGODB_URL || 'localhost:27017/urls'
