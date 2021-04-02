@@ -25,6 +25,10 @@ header {
   margin-bottom: 3rem;
 }
 
+main {
+    min-width: 300px;
+}
+
 #logo {
   max-width: 40%;
   image-rendering: -moz-crisp-edges;
