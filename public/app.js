@@ -1,46 +1,47 @@
-var serverUrl = '/urls';
-var btn = document.getElementById('btn')
-var errorDiv = document.getElementById('btn')
-var urlInput= document.getElementById('url_lnk');
-var slugInput= document.getElementById('slug');
+const serverUrl = '/urls';
+const errorDiv = document.getElementById('shorten-error')
+const createdSection= document.getElementById('created-section');
+const formElement = document.getElementById('url-form');
+const createdUrlElement = document.getElementById('createdTag');
 
-async function submit() {
-    var url = urlInput.value;
-    var slug = slugInput.value;
-    var error, result;
+
+async function submit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const form = new FormData(e.target);
+    const url = form.get("url");
+    const slug = form.get("slug");
+
+    var error, created;
 
     var body = {
-        'url': url,
-        'slug': slug
-    
+        url,
+        slug
     }
     const response = await fetch(serverUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(body)
     });
 
-    console.log(response);
-    if(response && response.status == 'ok') {
-        result = response.body.result; 
+    const resBody = await response.json();
+    if(response && response.status == 200) {
+        created = `${window.location.href}${resBody}`; 
     } else {
-        error = response.error ?? 'Error';
+        error = resBody.message || 'Toang rồi bạn êi!';
     }
 
     if(error) {
-        document.getElementById('form').innerHTML = error;
-        document.getElementById('resetBtn').style.display = 'block';
+        errorDiv.innerHTML = error;
+        errorDiv.style.display = "initial";
     } else {
-        urlInput.style.disabled = true;
-        slug.style.disabled = true;
-        btn.style.disabled = true;
+        formElement.style.display = "none";
+        createdUrlElement.innerHTML = created;
+        createdUrlElement.href = created;
+        createdSection.style.display="initial";
     }
 }
 
-btn.addEventListener('click', submit);
-document.getElementById('reload').addEventListener('click', function() {
-    window.location.reload();
-});
+formElement.addEventListener('submit', submit);
