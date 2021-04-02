@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css">
+  <title>Ong Dev Shortener</title>
 </head>
+
 <body>
-    Ahihi
+  <header>
+    <img src="logo.png" alt="Ong Dev logo" id="logo">
+  </header>
+  <main>
+    <form id="url-form">
+      <div id="shorten-error">ahihi</div>
+      <input type="text" name="url" class="input" id="url" placeholder="Enter a url" />
+      <input type="text" name="slug" class="input" id="slug" placeholder="Enter a slug" />      
+      <input type="submit" id="shorten-button" value="Shorten"></input>
+    </form>
+    <div id="created-section">
+      <p>Your short url is: <a id="createdTag" href="https://google.com" >https://google.com</a></p>
+    </div>
+  </main>
+  <script src="app.js"></script>
 </body>
+
 </html>

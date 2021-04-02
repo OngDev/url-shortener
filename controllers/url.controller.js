@@ -6,16 +6,16 @@ const create = async (req, res) => {
   const { body } = req
   const isValid = await urlSchema.isValid(body)
   if (!isValid) {
-    return res.status(400).json({ message: 'Invalid body' })
+    return res.status(400).json({ message: 'Điền thông tin có tâm đi bạn êi!' })
   }
   const { slug } = body
   const existsUrl = await urls.findOne({ slug })
   if (existsUrl) {
-    return res.status(400).json({ message: 'Slug already exists' })
+    return res.status(400).json({ message: 'Slug có người dùng rồi bạn êi!' })
   }
 
   const newUrl = await urls.insert(body)
-  res.jsonp(newUrl)
+  res.jsonp(newUrl.slug)
 }
 
 const list = async (req, res) => {
