@@ -1,4 +1,6 @@
+const {nanoid} = require('nanoid');
 const { db } = require('../db')
+const {convertValidationErrorsToMessage} = require('../utils/error.util')
 const urls = db.get('urls')
 const urlSchema = require('../models/url.model')
 const path = require('path')
@@ -6,14 +8,18 @@ const path = require('path')
 const create = async (req, res) => {
   try {
     const { body } = req
-    const isValid = await urlSchema.isValid(body)
-    if (!isValid) {
+    urlSchema.validate(body).catch((error) => {
+      const message = convertValidationErrorsToMessage(error.errors);
       return res
         .status(400)
-        .json({ message: 'Điền thông tin có tâm đi bạn êi!' })
+        .json({ message })
+    });
+    const { slug } = body;
+    if(!slug || slug === "") {
+      body.slug = nanoid();
     }
-    const { slug } = body
-    const existsUrl = await urls.findOne({ slug })
+
+    const existsUrl = await urls.findOne({ slug: body.slug })
     if (existsUrl) {
       return res.status(400).json({ message: 'Slug có người dùng rồi bạn êi!' })
     }
