@@ -6,7 +6,7 @@ const slowDown = require('express-slow-down')
 const limiter = rateLimit({
   windowMs: 15 * 1000,
   max: 3,
-  message: 'Nhấn thêm nữa là đá đít !',
+  message: 'Nhấn thêm nữa là đá đít!',
 })
 
 const speedLimiter = slowDown({
@@ -15,7 +15,6 @@ const speedLimiter = slowDown({
   delayMs: 500,
 })
 
-Router.get('/', url.list)
 Router.post('/', limiter, speedLimiter, url.create)
 
 module.exports = Router

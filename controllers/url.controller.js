@@ -31,15 +31,6 @@ const create = async (req, res) => {
   }
 }
 
-const list = async (req, res) => {
-  try {
-    const _urls = await urls.find()
-    res.jsonp(_urls)
-  } catch (error) {
-    throw error
-  }
-}
-
 const read = async (req, res) => {
   try {
     const { slug } = req.params
@@ -57,5 +48,4 @@ const read = async (req, res) => {
 module.exports = {
   create,
   read,
-  list,
 }
